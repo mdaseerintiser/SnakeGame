@@ -111,12 +111,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\LENOVO\Downloads\SDL3-3.4.2\include;C:\Users\LENOVO\Downloads\SDL3_ttf-devel-3.2.2-VC\SDL3_ttf-3.2.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\LENOVO\Downloads\SDL3-devel-3.4.10-VC\SDL3-3.4.10\include;C:\Users\LENOVO\Downloads\SDL3_ttf-devel-3.2.2-VC\SDL3_ttf-3.2.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\LENOVO\Downloads\SDL3-3.4.2\lib\x64;C:\Users\LENOVO\Downloads\SDL3_ttf-devel-3.2.2-VC\SDL3_ttf-3.2.2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\LENOVO\Downloads\SDL3-devel-3.4.10-VC\SDL3-3.4.10\lib\x64;C:\Users\LENOVO\Downloads\SDL3_ttf-devel-3.2.2-VC\SDL3_ttf-3.2.2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL3.lib;SDL3_test.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
@@ -143,6 +143,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="snake.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="snake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
