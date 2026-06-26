@@ -1,120 +1,132 @@
 #include "snake.h"
+
 #include <stdlib.h>
 
-// GAME AREA
+// Defines the game area where the snake and food are rendered.
 #define GAME_X 150
 #define GAME_Y 100
 #define GAME_W 500
 #define GAME_H 400
 
-void snake_init(Snake* s)
+// Initializes the snake with its starting position,
+// length, and movement direction.
+void snake_init(Snake* snake)
 {
-    s->length = 3;
-    s->dirX = 1;
-    s->dirY = 0;
+    snake->length = 3;
+    snake->dirX = 1;
+    snake->dirY = 0;
 
-    for (int i = 0; i < s->length; i++)
-    {
-        s->body[i].x = 10 - i;
-        s->body[i].y = 10;
+    for (int i = 0; i < snake->length; i++) {
+        snake->body[i].x = 10 - i;
+        snake->body[i].y = 10;
     }
 }
 
-void snake_change_dir(Snake* s, int x, int y)
+// Changes the snake's movement direction.
+// Opposite direction changes are ignored.
+void snake_change_dir(
+    Snake* snake,
+    int dirX,
+    int dirY
+)
 {
-    if (s->dirX == -x && s->dirY == -y)
+    if (snake->dirX == -dirX && snake->dirY == -dirY) {
         return;
-
-    s->dirX = x;
-    s->dirY = y;
-}
-
-void snake_update(Snake* s)
-{
-    for (int i = s->length - 1; i > 0; i--)
-    {
-        s->body[i] = s->body[i - 1];
     }
 
-    s->body[0].x += s->dirX;
-    s->body[0].y += s->dirY;
+    snake->dirX = dirX;
+    snake->dirY = dirY;
 }
 
-void snake_render(Snake* s, SDL_Renderer* renderer)
+// Updates the snake position by moving every body
+// segment and advancing the head.
+void snake_update(Snake* snake)
 {
-    for (int i = 0; i < s->length; i++)
-    {
-        SDL_FRect r;
+    for (int i = snake->length - 1; i > 0; i--) {
+        snake->body[i] = snake->body[i - 1];
+    }
 
-        r.x = GAME_X + s->body[i].x * GRID_SIZE;
-        r.y = GAME_Y + s->body[i].y * GRID_SIZE;
+    snake->body[0].x += snake->dirX;
+    snake->body[0].y += snake->dirY;
+}
 
-        r.w = GRID_SIZE - 2;
-        r.h = GRID_SIZE - 2;
+// Draws the snake on the screen.
+void snake_render(
+    Snake* snake,
+    SDL_Renderer* renderer
+)
+{
+    for (int i = 0; i < snake->length; i++) {
+        SDL_FRect rect;
 
-        if (i == 0)
+        rect.x = GAME_X + snake->body[i].x * GRID_SIZE;
+        rect.y = GAME_Y + snake->body[i].y * GRID_SIZE;
+        rect.w = GRID_SIZE - 2;
+        rect.h = GRID_SIZE - 2;
+
+        if (i == 0) {
             SDL_SetRenderDrawColor(renderer, 0, 255, 120, 255);
-        else
+        }
+        else {
             SDL_SetRenderDrawColor(renderer, 0, 180, 80, 255);
+        }
 
-        SDL_RenderFillRect(renderer, &r);
+        SDL_RenderFillRect(renderer, &rect);
     }
 }
 
-// 🍎 FOOD SPAWN (100% SAFE INSIDE BOX)
-void food_spawn(Food* f)
+// Spawns a food item at a random position inside
+// the game area.
+void food_spawn(Food* food)
 {
     int maxX = GAME_W / GRID_SIZE;
     int maxY = GAME_H / GRID_SIZE;
 
-    f->pos.x = rand() % maxX;
-    f->pos.y = rand() % maxY;
+    food->pos.x = rand() % maxX;
+    food->pos.y = rand() % maxY;
 
-    f->type = (rand() % 5 == 0) ? 1 : 0;
+    food->type = (rand() % 5 == 0) ? 1 : 0;
 }
 
-
-
-
-void special_food_spawn(Food* f)
+// Spawns a special food item.
+void special_food_spawn(Food* food)
 {
     int maxX = GAME_W / GRID_SIZE;
     int maxY = GAME_H / GRID_SIZE;
 
-    f->pos.x = rand() % maxX;
-    f->pos.y = rand() % maxY;
+    food->pos.x = rand() % maxX;
+    food->pos.y = rand() % maxY;
 
-    // 20% chance special food
-    f->type = (rand() % 5 == 0) ? 1 : 0;
+    // 20% chance of spawning special food.
+    food->type = (rand() % 5 == 0) ? 1 : 0;
 }
 
-// 🍎 FOOD RENDER (small rounded look, still square-safe)
-void food_render(Food* f, SDL_Renderer* renderer)
+// Draws the food on the screen.
+void food_render(
+    Food* food,
+    SDL_Renderer* renderer
+)
 {
-    SDL_FRect r;
+    SDL_FRect rect;
 
-    r.x = GAME_X + f->pos.x * GRID_SIZE;
-    r.y = GAME_Y + f->pos.y * GRID_SIZE;
+    rect.x = GAME_X + food->pos.x * GRID_SIZE;
+    rect.y = GAME_Y + food->pos.y * GRID_SIZE;
+    rect.w = GRID_SIZE;
+    rect.h = GRID_SIZE;
 
-    r.w = GRID_SIZE;
-    r.h = GRID_SIZE;
+    if (food->type == 1) {
+        SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
+    }
+    else {
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    }
 
-    if (f->type == 1)
-        SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255); // special
-    else
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);   // normal
-
-    // small inset (looks slightly round but safe)
-    SDL_FRect draw =
-    {
-        r.x + 2,
-        r.y + 2,
-        r.w - 4,
-        r.h - 4
+    SDL_FRect drawRect = {
+        rect.x + 2,
+        rect.y + 2,
+        rect.w - 4,
+        rect.h - 4
     };
 
-
-
-
-    SDL_RenderFillRect(renderer, &draw);
+    SDL_RenderFillRect(renderer, &drawRect);
 }

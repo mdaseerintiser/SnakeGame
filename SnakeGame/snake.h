@@ -6,10 +6,14 @@
 #define MAX_SNAKE 100
 #define GRID_SIZE 20
 
+// Represents a position in the game grid.
 typedef struct {
-    int x, y;
+    int x;
+    int y;
 } Point;
 
+// Represents the snake, including its body, length,
+// and current movement direction.
 typedef struct {
     Point body[MAX_SNAKE];
     int length;
@@ -17,19 +21,38 @@ typedef struct {
     int dirY;
 } Snake;
 
+// Represents a food item that can be collected by
+// the snake. Type indicates the food category.
 typedef struct {
     Point pos;
-    int type; // 0 = normal, 1 = special
+    int type;   // 0 = Normal, 1 = Special
 } Food;
 
-// snake
-void snake_init(Snake* s);
-void snake_update(Snake* s);
-void snake_render(Snake* s, SDL_Renderer* renderer);
-void snake_change_dir(Snake* s, int x, int y);
+// Initializes the snake with its starting position,
+// length, and movement direction.
+void snake_init(Snake* snake);
 
-// food
-void food_spawn(Food* f);
-void food_render(Food* f, SDL_Renderer* renderer);
+// Updates the snake's position based on its
+// current movement direction.
+void snake_update(Snake* snake);
+
+// Draws the snake on the screen.
+void snake_render(Snake* snake, SDL_Renderer* renderer);
+
+// Changes the snake's movement direction.
+void snake_change_dir(
+    Snake* snake,
+    int dirX,
+    int dirY
+);
+
+// Spawns a new food item at a valid position.
+void food_spawn(Food* food);
+
+// Draws the food item on the screen.
+void food_render(
+    Food* food,
+    SDL_Renderer* renderer
+);
 
 #endif
