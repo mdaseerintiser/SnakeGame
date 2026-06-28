@@ -5,12 +5,25 @@
 
 #define MAX_SNAKE 100
 #define GRID_SIZE 20
+#define MAX_OBSTACLES 20
+
 
 // Represents a position in the game grid.
 typedef struct {
     int x;
     int y;
 } Point;
+
+
+
+typedef struct {
+    Point pos;
+} Obstacle;
+
+
+typedef struct {
+    Point pos;
+} Portal;
 
 // Represents the snake, including its body, length,
 // and current movement direction.
@@ -25,7 +38,7 @@ typedef struct {
 // the snake. Type indicates the food category.
 typedef struct {
     Point pos;
-    int type;   // 0 = Normal, 1 = Special
+    int type;   // 0 = Normal, 1 = Special , -1 = Poisonous 
 } Food;
 
 // Initializes the snake with its starting position,
@@ -47,7 +60,7 @@ void snake_change_dir(
 );
 
 // Spawns a new food item at a valid position.
-void food_spawn(Food* food);
+void food_spawn(Food* food,Snake* snake);
 
 // Draws the food item on the screen.
 void food_render(

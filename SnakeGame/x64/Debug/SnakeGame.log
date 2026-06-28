@@ -1,6 +1,16 @@
 ﻿  main.cpp
-C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(269,9): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(269,9): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(270,9): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(270,9): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  snake.cpp
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(31,23): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(31,23): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(31,26): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(31,26): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(250,28): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(250,28): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(251,28): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\main.cpp(251,28): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\snake.cpp(62,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\snake.cpp(63,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\snake.cpp(151,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\LENOVO\source\repos\SnakeGame\SnakeGame\snake.cpp(152,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
   SnakeGame.vcxproj -> C:\Users\LENOVO\source\repos\SnakeGame\x64\Debug\SnakeGame.exe

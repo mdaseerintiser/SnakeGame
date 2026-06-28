@@ -5,8 +5,8 @@
 // Defines the game area where the snake and food are rendered.
 #define GAME_X 150
 #define GAME_Y 100
-#define GAME_W 500
-#define GAME_H 400
+#define GAME_W 700
+#define GAME_H 500
 
 // Initializes the snake with its starting position,
 // length, and movement direction.
@@ -62,10 +62,10 @@ void snake_render(
         rect.x = GAME_X + snake->body[i].x * GRID_SIZE;
         rect.y = GAME_Y + snake->body[i].y * GRID_SIZE;
         rect.w = GRID_SIZE - 2;
-        rect.h = GRID_SIZE - 2;
+        rect.h = GRID_SIZE - 2; 
 
         if (i == 0) {
-            SDL_SetRenderDrawColor(renderer, 0, 255, 120, 255);
+            SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
         }
         else {
             SDL_SetRenderDrawColor(renderer, 0, 180, 80, 255);
@@ -77,7 +77,7 @@ void snake_render(
 
 // Spawns a food item at a random position inside
 // the game area.
-void food_spawn(Food* food)
+/*void food_spawn(Food* food)
 {
     int maxX = GAME_W / GRID_SIZE;
     int maxY = GAME_H / GRID_SIZE;
@@ -101,6 +101,45 @@ void special_food_spawn(Food* food)
     food->type = (rand() % 5 == 0) ? 1 : 0;
 }
 
+*/
+
+void food_spawn(
+    Food* food,
+    Snake* snake
+)
+{
+    int maxX = GAME_W / GRID_SIZE;
+    int maxY = GAME_H / GRID_SIZE;
+
+    bool valid = false;
+
+    while (!valid)
+    {
+        valid = true;
+
+        food->pos.x = rand() % maxX;
+        food->pos.y = rand() % maxY;
+
+        for (int i = 0; i < snake->length; i++)
+        {
+            if (food->pos.x == snake->body[i].x &&
+                food->pos.y == snake->body[i].y)
+            {
+                valid = false;
+                break;
+            }
+        }
+    }
+
+    int r = rand() % 10;
+
+    if (r == 0) food->type = 1;   // poison
+    else if (r < 3) food->type = -1; // special
+    else food->type = 0;           // normal
+}
+
+
+
 // Draws the food on the screen.
 void food_render(
     Food* food,
@@ -115,9 +154,15 @@ void food_render(
     rect.h = GRID_SIZE;
 
     if (food->type == 1) {
+        // Special food (Gold)
         SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
     }
+    else if (food->type == -1) {
+        // Poisonous food (Purple / Dark Violet)
+        SDL_SetRenderDrawColor(renderer, 148, 0, 211, 255);
+    }
     else {
+        // Normal food (Red)
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     }
 
